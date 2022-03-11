@@ -18,7 +18,7 @@ export default function Post({ post }: PostProps) {
   return (
     <>
       <Head>
-        <title>post.title | Ignews</title>
+        <title>{post.title} | Ignews</title>
       </Head>
       <main className={styles.container}>
         <article className={styles.post}>
@@ -41,12 +41,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   const session = await getSession({ req });
   const { slug } = params;
 
-  console.log(session);
-
-  if (!session.activeSubscription) {
+  if (!session?.activeSubscription) {
     return {
       redirect: {
-        destination: "/",
+        destination: `/posts/preview/${slug}`,
         permanent: false,
       },
     };
